@@ -25,6 +25,11 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npx playwright test
+      - name: Check report structure
+        run: |
+          echo "Current directory structure:"
+          ls -la playwright-report/
+          echo "Run number: ${{ github.run_number }}"
       - name: Deploy Playwright Reports to GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
@@ -33,6 +38,7 @@ jobs:
           publish_dir: playwright-report/
           destination_dir: playwright-reports/${{ github.run_number }}
           keep_files: true
+          enable_jekyll: false
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
