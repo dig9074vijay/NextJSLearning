@@ -32,6 +32,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: playwright-report/
           destination_dir: playwright-reports/${{ github.run_number }}
+          keep_files: true
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
