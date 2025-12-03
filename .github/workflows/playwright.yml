@@ -58,16 +58,9 @@ jobs:
       - name: Prepare deployment directory
         run: |
           mkdir -p ./public
-          # Copy our custom landing page as index.html
-          cp static-page.html ./public/index.html
           # Copy the Playwright report
           cp -r ./report/* ./public/
           # Rename the Playwright report index to avoid conflicts
-          if [ -f ./public/index.html ]; then
-            mv ./public/index.html ./public/playwright-report.html
-            # Restore our custom index
-            cp static-page.html ./public/index.html
-          fi
           # List contents for debugging
           echo "Public directory contents:"
           ls -la ./public/
