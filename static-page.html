@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextJS Learning - Test Reports</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+      h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        background: linear-gradient(45deg, #fff, #e0e0e0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 20px 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+      }
+      .card h2 {
+        margin-top: 0;
+        font-size: 1.5em;
+        color: #fff;
+      }
+      .card p {
+        margin-bottom: 20px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+      .btn {
+        display: inline-block;
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        color: white;
+        padding: 12px 30px;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(238, 90, 36, 0.4);
+      }
+      .feature-list {
+        list-style: none;
+        padding: 0;
+      }
+      .feature-list li {
+        padding: 8px 0;
+        position: relative;
+        padding-left: 25px;
+      }
+      .feature-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #4caf50;
+        font-weight: bold;
+      }
+      .status {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin: 20px 0;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        opacity: 0.7;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>NextJS Learning Project</h1>
+
+      <div class="status">
+        <p>🚀 Automated testing and reporting with Playwright</p>
+      </div>
+
+      <div class="card">
+        <h2>📊 Test Reports</h2>
+        <p>View detailed test execution reports with interactive features:</p>
+        <ul class="feature-list">
+          <li>Test results with pass/fail status</li>
+          <li>Screenshots and video recordings</li>
+          <li>Execution traces and timing information</li>
+          <li>Error details and stack traces</li>
+        </ul>
+        <a href="./playwright-report.html" class="btn"
+          >View Latest Test Report</a
+        >
+      </div>
+
+      <div class="card">
+        <h2>🔄 Automated Deployment</h2>
+        <p>This page is automatically updated when:</p>
+        <ul class="feature-list">
+          <li>New code is pushed to the main branch</li>
+          <li>All Playwright tests pass successfully</li>
+          <li>GitHub Actions workflow completes</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>🛠️ Project Details</h2>
+        <p>
+          This is a learning project for NextJS with automated testing
+          infrastructure:
+        </p>
+        <ul class="feature-list">
+          <li>Playwright for end-to-end testing</li>
+          <li>GitHub Actions for CI/CD</li>
+          <li>GitHub Pages for report hosting</li>
+          <li>Automated test report deployment</li>
+        </ul>
+        <a href="https://github.com/dig9074vijay/NextJSLearning" class="btn"
+          >View Source Code</a
+        >
+      </div>
+
+      <div class="footer">
+        <p>Last updated: <span id="timestamp"></span></p>
+        <p>Powered by GitHub Actions & GitHub Pages</p>
+      </div>
+    </div>
+
+    <script>
+      // Update timestamp
+      document.getElementById("timestamp").textContent =
+        new Date().toLocaleString();
+
+      // Check if we're in the GitHub Pages environment and verify report exists
+      if (window.location.pathname.includes("NextJSLearning")) {
+        fetch("./playwright-report.html")
+          .then((response) => {
+            if (response.ok) {
+              // Report exists, update the button styling
+              const reportLink = document.querySelector(".btn");
+              if (reportLink) {
+                reportLink.style.background =
+                  "linear-gradient(45deg, #4CAF50, #45a049)";
+              }
+            }
+          })
+          .catch(() => {
+            // If report doesn't exist, update the button
+            const reportLink = document.querySelector(".btn");
+            if (reportLink) {
+              reportLink.textContent = "Report Not Available Yet";
+              reportLink.style.background =
+                "linear-gradient(45deg, #888, #666)";
+              reportLink.style.cursor = "not-allowed";
+              reportLink.onclick = (e) => e.preventDefault();
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
